@@ -2,13 +2,37 @@
   "name": "dashboard-v4",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.13.x"
+  },
   "dependencies": {
+    "apollo-boost": "^0.4.0",
+    "apollo-link-ws": "^1.0.17",
+    "apollo-server-express": "^2.5.0",
+    "axios": "^0.18.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "classnames": "^2.2.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "graphql": "^14.3.1",
+    "graphql-tag": "^2.10.1",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
+    "ramda": "^0.26.1",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.6",
+    "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:server": "BABEL_ENV=development NODE_PATH=server nodemon server/bootstrap.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

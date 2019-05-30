@@ -1,0 +1,9 @@
+@import '~styles/mixins';
+
+.container {
+  @include entrypoint;
+}
+
+.card {
+  @include large-card;
+}

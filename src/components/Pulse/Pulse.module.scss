@@ -1,0 +1,36 @@
+@keyframes pulseBror {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.container {
+  border: none;
+  background: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+}
+
+.animation {
+  animation: pulseBror 1.3s ease-out;
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 1);
+}

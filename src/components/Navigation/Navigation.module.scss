@@ -1,0 +1,44 @@
+@import '~styles/mixins';
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: $menu-width;
+  background: $white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px;
+}
+
+.nav {
+  padding: 0;
+}
+
+.heading {
+  font-size: $two-base-margin;
+  padding: $two-base-margin $three-base-margin;
+  border-bottom: 1px solid $border-grey;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+}
+
+.link {
+  color: $text-standard-grey;
+  display: block;
+  text-decoration: none;
+  padding: $two-base-margin $three-base-margin;
+  transition: background 200ms ease;
+
+  &:hover {
+    background: $grey3;
+  }
+}

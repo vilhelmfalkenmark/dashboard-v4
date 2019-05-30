@@ -1,0 +1,54 @@
+@keyframes modalFadeIn {
+  from {
+    transform: scale(0.8) translateZ(1px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateZ(1px);
+    opacity: 1;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    transform: scale(1) translateZ(1px);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8) translateZ(1px);
+    opacity: 0;
+  }
+}
+
+/**
+* Visibility
+*/
+@keyframes visibilityHidden {
+  from {
+    transform: scaleX(1) translateZ(1px);
+  }
+  to {
+    transform: scaleX(0) translateZ(1px);
+  }
+}
+
+@keyframes visibilityVisible {
+  from {
+    transform: scaleX(0) translateZ(1px);
+  }
+  to {
+    transform: scaleX(1) translateZ(1px);
+  }
+}
+
+/**
+* Spin
+*/
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

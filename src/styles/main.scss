@@ -1,0 +1,21 @@
+@import 'normalize';
+@import 'variables';
+@import 'colors';
+@import 'mixins';
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  color: $text-standard-grey;
+  font-size: 1.6rem;
+  font-family: Roboto, sans-serif;
+  background: rgb(238, 238, 238);
+}

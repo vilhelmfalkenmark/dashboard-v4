@@ -1,0 +1,64 @@
+/**
+* GREY SCALE
+*/
+$white: #fff;
+$grey1: #f3f3f0;
+$grey2: #e5e5e5;
+$grey3: #c8c8c8;
+$grey4: #969696;
+$grey5: #5d5d5d;
+$grey6: #464646;
+$grey7: #2b2f3e;
+$black: #000;
+
+/**
+* RAINBOW COLORS
+*/
+$light-yellow: #ffeba6;
+$yellow: rgb(252, 197, 0);
+$orange: #ff9440;
+$light-green: #adeacd;
+$green: #38ad54;
+$lightest-blue: #f7fcff;
+$light-blue: #63d4fa;
+$blue: #1cabdb;
+$blue-disabled: #92cfe6;
+$blue-hover: #147893;
+$blue-active: #303135;
+$red: #e64d59;
+$red-hover: #d32734;
+$red-active: #a5121d;
+$portal-color: #66c294;
+$report-green-1: #e8f6f0;
+$report-green-2: #cfede1;
+$report-green-3: #a1dac3;
+$tile-background: #eeeeee;
+
+/**
+* TRANSPARENT COLORS
+*/
+$transparent-white: rgba(255, 255, 255, 0.85);
+$transparent-grey1: rgba(255, 255, 255, 0.75);
+$transparent-grey2: rgba(20, 20, 20, 0.5);
+$transparent-grey3: rgba(0, 0, 0, 0.65);
+$transparent-grey4: rgba(0, 0, 0, 0.9);
+$transparent-green: rgba(56, 173, 84, 0.7);
+
+$grey-modal-overlay: $transparent-grey2;
+$white-modal-overlay: rgba(255, 255, 255, 0.8);
+
+/**
+* COMPONENT COLORS
+*/
+$application-background: $grey1;
+$modal-background: $grey1;
+$text-light-grey: $grey4;
+$text-standard-grey: $grey6;
+$menu-background: $grey7;
+$border-grey: $grey3;
+
+/**
+* SHADOWS
+*/
+$box-shadow1: 0 2px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+$box-shadow2: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
