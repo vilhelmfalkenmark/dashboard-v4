@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withApollo } from 'react-apollo';
 import classNames from 'classnames/bind';
-import { useQuery } from 'react-apollo-hooks';
 
 import { SEARCH_STATION_BY_NAME } from 'schemas/querys';
+import { SpinnerTypes } from 'utils/constants';
 
+import Station from 'components/Station/Station';
+import SolidSpinner from 'components/SolidSpinner/SolidSpinner';
 import Input from 'components/Input/Input';
+import DepartureModal from 'components/DepartureModal/DepartureModal';
 
 import styles from './SearchStations.module.scss';
 
@@ -18,10 +21,15 @@ class SearchStations extends Component {
     this.state = {
       searchValue: '',
       stationsByName: [],
-      fetching: false
+      fetching: false,
+      modalIsOpen: false,
+      station: {}
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.onHandleSubmit = this.onHandleSubmit.bind(this);
+    this.onStationsFetched = this.onStationsFetched.bind(this);
+    this.openDepartureModal = this.openDepartureModal.bind(this);
+    this.closeDepartureModal = this.closeDepartureModal.bind(this);
   }
 
   handleInputChange(e) {
@@ -46,31 +54,61 @@ class SearchStations extends Component {
     })();
   }
 
-  onStationsFetched = stationsByName =>
+  onStationsFetched(stationsByName) {
     this.setState({ stationsByName, fetching: false });
+  }
+
+  openDepartureModal(siteId, name) {
+    this.setState({
+      station: {
+        siteId,
+        name
+      },
+      modalIsOpen: true
+    });
+  }
+
+  closeDepartureModal() {
+    this.setState({
+      modalIsOpen: false
+    });
+  }
 
   render() {
     const { fetching, stationsByName } = this.state;
-
-    console.log(this.state.stationsByName);
 
     return (
       <main className={s('container')}>
         <div className={s('card')}>
           <h1>Sök station</h1>
           <Input
+            inputLabel={'Sök station'}
             onInputChange={this.handleInputChange}
             handleSubmit={this.onHandleSubmit}
           />
-          {fetching && <p>Laddar</p>}
+          {fetching && (
+            <SolidSpinner
+              color={SpinnerTypes.GREY}
+              size={SpinnerTypes.MEDIUM}
+            />
+          )}
           {stationsByName.length > 0 && (
             <ul>
               {stationsByName.map((station, index) => (
-                <li key={`${station.siteId}_${index}`}>{station.name}</li>
+                <Station
+                  key={`${station.siteId}_${index}`}
+                  openDepartureModal={this.openDepartureModal}
+                  station={station}
+                />
               ))}
             </ul>
           )}
         </div>
+        <DepartureModal
+          station={this.state.station}
+          isOpen={this.state.modalIsOpen}
+          closeDepartureModal={this.closeDepartureModal}
+        />
       </main>
     );
   }

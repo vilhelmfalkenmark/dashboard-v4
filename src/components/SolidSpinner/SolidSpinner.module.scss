@@ -1,0 +1,67 @@
+@import '~styles/variables';
+@import '~styles/colors';
+@import '~styles/keyframes';
+
+.container {
+  text-align: center;
+}
+
+@mixin spinnerBorder($primaryColor, $secondaryColor) {
+  border-left-color: $primaryColor;
+  border-right-color: $primaryColor;
+  border-top-color: $primaryColor;
+  border-bottom-color: $secondaryColor;
+}
+
+.spinner {
+  @include spinnerBorder($grey5, $grey1);
+
+  display: inline-block;
+  animation: spin 2s infinite linear;
+  margin: 0 auto;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  border-style: solid;
+
+  /**
+	* SIZES
+	*/
+  &_small {
+    height: 25px;
+    max-height: 25px;
+    width: 25px;
+    border-width: 2px;
+  }
+
+  &_medium {
+    height: 35px;
+    width: 35px;
+    border-width: 3px;
+  }
+
+  &_large {
+    height: 45px;
+    width: 45px;
+    border-width: 3px;
+  }
+
+  /**
+	* COLORS
+	*/
+  &_blue {
+    @include spinnerBorder($blue, $grey1);
+  }
+
+  &_lightBlue {
+    @include spinnerBorder($light-blue, $white);
+  }
+
+  &_white {
+    @include spinnerBorder($white, $grey5);
+  }
+
+  &_grey {
+    @include spinnerBorder($grey5, $grey1);
+  }
+}

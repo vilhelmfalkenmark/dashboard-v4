@@ -1,0 +1,44 @@
+@import '~styles/mixins';
+
+.container {
+  min-height: 500px;
+}
+
+.list {
+  @include reset-list;
+
+  margin-bottom: $three-base-margin;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid $border-grey;
+}
+
+.item_left {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line {
+  min-width: 50px;
+  text-align: center;
+  padding: $base-margin;
+  color: $white;
+  margin-right: $base-margin;
+
+  &_bus {
+    background: $red;
+  }
+
+  &_train {
+    background: $blue;
+  }
+
+  &_metro {
+    background: $green;
+  }
+}
