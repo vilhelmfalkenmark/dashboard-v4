@@ -155,3 +155,34 @@
     overflow-y: hidden;
   }
 }
+
+.closeContainer {
+  position: absolute;
+  top: $base-margin;
+  right: $half-base-margin;
+  height: 4rem;
+  width: 4rem;
+
+  &:hover {
+    svg {
+      fill: $blue;
+    }
+  }
+}
+
+.closeInnerContainer {
+  display: block;
+  height: 4rem;
+  width: 4rem;
+  position: relative;
+  border-radius: 50%;
+}
+
+.crossIcon {
+  @include absolute-center;
+
+  pointer-events: none;
+  height: 15px;
+  width: 15px;
+  transition: fill 100ms ease;
+}

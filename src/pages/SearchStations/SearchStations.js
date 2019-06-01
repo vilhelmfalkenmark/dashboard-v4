@@ -75,7 +75,7 @@ class SearchStations extends Component {
   }
 
   render() {
-    const { fetching, stationsByName } = this.state;
+    const { fetching, stationsByName, searchValue } = this.state;
 
     return (
       <main className={s('container')}>
@@ -83,6 +83,7 @@ class SearchStations extends Component {
           <h1>Sök station</h1>
           <Input
             inputLabel={'Sök station'}
+            inputValue={searchValue}
             onInputChange={this.handleInputChange}
             handleSubmit={this.onHandleSubmit}
           />
@@ -93,7 +94,7 @@ class SearchStations extends Component {
             />
           )}
           {stationsByName.length > 0 && (
-            <ul>
+            <ul className={s('list')}>
               {stationsByName.map((station, index) => (
                 <Station
                   key={`${station.siteId}_${index}`}

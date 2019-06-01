@@ -1,0 +1,20 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $base-margin 0;
+  border-bottom: 1px solid $border-grey;
+}
+
+.left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.heart {
+  margin-right: $base-margin;
+}

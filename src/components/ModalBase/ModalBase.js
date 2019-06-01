@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
-import { ModalTypes } from 'utils/constants';
+import { ModalTypes, IconTypes } from 'utils/constants';
 import styles from './ModalBase.module.scss';
+import CircleButton from 'components/CircleButton/CircleButton';
 
 const s = classNames.bind(styles);
 
@@ -100,6 +101,12 @@ class ModalBase extends Component {
               children_isClosed: !isOpen
             })}
           >
+            <CircleButton
+              className={s('closeContainer')}
+              icon={IconTypes.CROSS}
+              onClickCallback={this.props.onCloseCallback}
+            />
+
             {children}
           </div>
         </div>

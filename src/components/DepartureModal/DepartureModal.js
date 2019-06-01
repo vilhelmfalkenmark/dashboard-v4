@@ -19,6 +19,7 @@ class DepartureModal extends Component {
 
     this.state = {
       fetching: false,
+      error: false,
       departures: {
         metros: [],
         buses: [],
@@ -39,16 +40,20 @@ class DepartureModal extends Component {
           fetching: true
         });
 
-        const { data } = await client.query({
+        const { data, loading, error } = await client.query({
           query: GET_DEPARTURES_BY_STATION_ID,
           variables: { siteId: this.props.station.siteId }
         });
-        this.oDeparturesFetched(data.departures);
+        this.oDeparturesFetched(data.departures, loading, error);
       })();
     }
   }
 
-  oDeparturesFetched(departures) {
+  oDeparturesFetched(departures, _, error) {
+    if (error) {
+      this.setState({ error: true, fetching: false });
+    }
+
     this.setState({ departures: { ...departures }, fetching: false });
   }
 
@@ -84,6 +89,10 @@ class DepartureModal extends Component {
       return null;
     }
 
+    if (!metros.length && !buses.length && !trains.length) {
+      return <p>Inga avgångar hittades</p>;
+    }
+
     return (
       <div>
         {metros.length > 0 &&
@@ -97,7 +106,7 @@ class DepartureModal extends Component {
   }
 
   render() {
-    const { fetching, departures } = this.state;
+    const { fetching, departures, error } = this.state;
 
     const { station } = this.props;
 
@@ -111,11 +120,14 @@ class DepartureModal extends Component {
         <div className={s('container')}>
           <h1>Avgångar från {station.name}</h1>
           {fetching && (
-            <SolidSpinner
-              color={SpinnerTypes.GREY}
-              size={SpinnerTypes.MEDIUM}
-            />
+            <div className={s('spinnerContainer')}>
+              <SolidSpinner
+                color={SpinnerTypes.GREY}
+                size={SpinnerTypes.MEDIUM}
+              />
+            </div>
           )}
+          {error && <p>Ett fel har inträffat</p>}
           {!fetching && this.getDeparturesMarkup(departures)}
         </div>
       </ModalBase>

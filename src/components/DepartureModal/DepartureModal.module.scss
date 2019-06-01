@@ -1,7 +1,12 @@
 @import '~styles/mixins';
 
-.container {
-  min-height: 500px;
+.container,
+.spinnerContainer {
+  min-height: 550px;
+}
+
+.spinnerContainer {
+  @include flex-center;
 }
 
 .list {
@@ -14,6 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: $base-margin 0;
   border-bottom: 1px solid $border-grey;
 }
 

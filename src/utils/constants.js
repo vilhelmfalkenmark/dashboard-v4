@@ -15,4 +15,17 @@ export const SpinnerTypes = {
   LARGE: 'large'
 };
 
+export const PulseTypes = {
+  GREY: 'pulseGrey',
+  BLUE: 'pulseBlue',
+  SMALL: 'pulseSmall',
+  MEDIUM: 'pulseMedium',
+  LARGE: 'pulseLarge'
+};
+
+export const IconTypes = {
+  HEART: 'iconHeart',
+  CROSS: 'iconCross'
+};
+
 export default '';

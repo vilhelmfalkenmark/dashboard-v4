@@ -1,0 +1,29 @@
+@import '~styles/mixins';
+
+.container {
+  height: $four-base-margin;
+  width: $four-base-margin;
+
+  &:hover {
+    svg {
+      fill: $blue;
+    }
+  }
+}
+
+.innerContainer {
+  display: block;
+  height: $four-base-margin;
+  width: $four-base-margin;
+  position: relative;
+  border-radius: 50%;
+}
+
+.icon {
+  @include absolute-center;
+
+  pointer-events: none;
+  height: 15px;
+  width: 15px;
+  transition: fill 100ms ease;
+}

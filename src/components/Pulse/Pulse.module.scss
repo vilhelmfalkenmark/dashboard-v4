@@ -1,3 +1,5 @@
+@import '~styles/mixins';
+
 @keyframes pulseBror {
   from {
     transform: scale(0);
@@ -25,12 +27,33 @@
   -moz-backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
+
+  transition: background 200ms ease;
+
+  &_grey {
+    &:hover {
+      background: $grey2;
+    }
+  }
+
+  &_blue {
+    &:hover {
+      background: $blue;
+    }
+  }
 }
 
 .animation {
-  animation: pulseBror 1.3s ease-out;
+  animation: pulseBror 1s ease-out;
   border-radius: 50%;
   position: absolute;
   pointer-events: none;
-  background: rgba(255, 255, 255, 1);
+
+  &_grey {
+    background: $grey3;
+  }
+
+  &_blue {
+    background: darken($blue, 10%);
+  }
 }

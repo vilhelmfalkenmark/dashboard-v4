@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
+import { PulseTypes } from 'utils/constants';
 
 import Pulse from 'components/Pulse/Pulse';
 
@@ -18,7 +19,7 @@ const Navigation = ({ navigation }) => (
           <ul className={s('list')}>
             {nav.routes.map(route => (
               <li key={route.id} className={s('item')}>
-                <Pulse>
+                <Pulse color={PulseTypes.BLUE}>
                   <Link className={s('link')} to={route.path}>
                     {route.title}
                   </Link>
