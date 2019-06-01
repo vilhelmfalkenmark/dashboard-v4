@@ -1,42 +1,21 @@
 import { view, lensPath } from 'ramda';
 
-const DB_STATION_MODEL = {
-  siteId: '',
-  name: '',
-  _id: null
-};
-
-const FAVORITE_STATIONS_COLLECTION = 'favorite_stations';
-
-// const lowerCaseObjectKeys = object => {
-//   return Object.keys(object).reduce((accum, key) => {
-//     accum[`${key.charAt(0).toLowerCase()}${key.slice(1)}`] = object[key];
-//     return accum;
-//   }, {});
-// };
-
-export default ({ connector, endpoints, database }) => {
-  const test = ({ token }) => ({ name: 'Ville', id: 4 });
+export default ({ connector, endpoints, dbConnection }) => {
   /**
-   * @function searchStationByName
-   * @param {String} name
-   */
-
-  //////////////////////////////////////////////////
-  /**
-   * SEARCH STATION BY NAME FROM TRAFIC-LAB API
-   */
-  //////////////////////////////////////////////////
+  |--------------------------------------------------
+  |  @function searchStationByName
+  |--------------------------------------------------
+  */
   const searchStationByName = ({ name }) =>
     connector
       .getRequest({ path: endpoints.searchStationByName(name) })
       .then(response => view(lensPath(['ResponseData']), response));
 
-  //////////////////////////////////////////////////
   /**
-   * SEARCH STATION(S) BY COORDINATES FROM TRAFIC-LAB API
-   */
-  //////////////////////////////////////////////////
+  |--------------------------------------------------
+  |  @function searchStationsByCoordinates
+  |--------------------------------------------------
+  */
   const searchStationsByCoordinates = ({ lon, lat }) =>
     connector
       .getRequest({
@@ -54,88 +33,79 @@ export default ({ connector, endpoints, database }) => {
         );
       });
 
-  //////////////////////////////////////////////////
   /**
-   * GET DEPARTURES BY SITE ID FROM TRAFIC-LAB API
-   */
-  //////////////////////////////////////////////////
+  |--------------------------------------------------
+  |  @function getDeparturesByStationId
+  |--------------------------------------------------
+  */
   const getDeparturesByStationId = ({ siteId }) =>
     connector
       .getRequest({ path: endpoints.getDeparturesByStationId(siteId) })
       .then(response => view(lensPath(['ResponseData']), response));
 
-  //////////////////////////////////////////////////
   /**
-   * GET ALL FAVORITE STATIONS FROM MONGO DB
-   */
-  //////////////////////////////////////////////////
+  |--------------------------------------------------
+  |  @function myFavoriteStations
+  |--------------------------------------------------
+  */
   const myFavoriteStations = () => {
     return new Promise((resolve, reject) => {
-      database
-        .collection(FAVORITE_STATIONS_COLLECTION)
-        .find({})
-        .toArray(function(err, data) {
-          if (err) {
-            return reject(err);
-          } else {
-            return resolve(data);
-          }
-        });
+      dbConnection.query(`SELECT * FROM stations`, (err, rows) => {
+        try {
+          return resolve(rows);
+        } catch (error) {
+          return reject({ error: error });
+        }
+      });
     });
   };
 
-  //////////////////////////////////////////////////
   /**
-   * ADD FAVORITE STATION TO MONGODB
-   */
-  //////////////////////////////////////////////////
+  |--------------------------------------------------
+  |  @function saveStationAsFavorite
+  |--------------------------------------------------
+  */
   const saveStationAsFavorite = ({ siteId, name }) => {
-    const newStation = Object.assign({}, DB_STATION_MODEL, {
-      siteId,
-      name
-    });
-
     return new Promise((resolve, reject) => {
-      database
-        .collection(FAVORITE_STATIONS_COLLECTION)
-        .insertOne(newStation, (err, doc) => {
-          if (err) {
-            return reject(err);
+      dbConnection.query(
+        `INSERT INTO stations (siteId, name) VALUES ("${siteId}", "${name}")`,
+        (err, rows) => {
+          try {
+            return resolve({ SiteId: siteId, Name: name });
+          } catch (error) {
+            return reject({ error: error });
           }
-          // const returnStatement = view(lensIndex(0), doc.ops);
-          // return resolve(returnStatement);
-          return resolve({ SiteId: siteId, Name: name }); // <-- Respond with the original data if succesful
-        });
+        }
+      );
     });
   };
-  //////////////////////////////////////////////////
+
   /**
-   * REMOVE FAVORITE STATION TO MONGODB
-   */
-  //////////////////////////////////////////////////
+  |--------------------------------------------------
+  |  @function removeStationFromFavorites
+  |--------------------------------------------------
+  */
   const removeStationFromFavorites = ({ siteId, name }) => {
     return new Promise((resolve, reject) => {
-      database.collection(FAVORITE_STATIONS_COLLECTION).remove(
-        {
-          siteId: siteId
-        },
-        (err, doc) => {
-          if (err) {
-            return reject(err);
+      dbConnection.query(
+        `DELETE FROM stations WHERE siteId=${siteId}`,
+        (err, rows) => {
+          try {
+            return resolve({ SiteId: siteId, Name: name });
+          } catch (error) {
+            return reject({ error: error });
           }
-          return resolve({ SiteId: siteId, Name: name }); // <-- Respond with the original data if succesful
         }
       );
     });
   };
 
   return {
-    test,
     searchStationByName,
     searchStationsByCoordinates,
     getDeparturesByStationId,
+    myFavoriteStations,
     saveStationAsFavorite,
-    removeStationFromFavorites,
-    myFavoriteStations
+    removeStationFromFavorites
   };
 };

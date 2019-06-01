@@ -7,7 +7,7 @@ import endpoints from '../connector/endpoints';
 // IMPORT ENTITIES
 import Departures from './departures';
 
-export default () => {
+export default dbConnection => {
   const connector = HTTPconnector();
 
   // INITIALIZE ENTITIES
@@ -16,7 +16,7 @@ export default () => {
   const departuresEntity = Departures({
     connector,
     endpoints: endpoints.sl,
-    database: {}
+    dbConnection
   });
 
   // Todolist

@@ -1,8 +1,8 @@
-import Model from "./model";
-import Resolvers from "./resolvers";
+import Model from 'entities/departures/model';
+import Resolvers from 'entities/departures/resolvers';
 
-export default ({ connector, endpoints, database }) => {
-  const model = Model({ connector, endpoints, database });
+export default ({ connector, endpoints, dbConnection }) => {
+  const model = Model({ connector, endpoints, dbConnection });
 
   return {
     resolvers: Resolvers({ model }),
@@ -96,7 +96,6 @@ export default ({ connector, endpoints, database }) => {
     }
 
     extend type Query {
-      test(params: personId): Person
       searchStationByName(params: stationNameQuery): [Station]
       searchStationsByCoordinates(params: stationCoordinateQuery): [StationByCoordinate]
       getDeparturesByStationId(params: siteIdQuery): Departures

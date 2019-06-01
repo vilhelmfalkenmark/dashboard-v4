@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const SEARCH_STATION_BY_NAME = gql`
   query searchStationByName($name: String!) {
-    stationsByName: searchStationByName(params: { name: $name }) {
+    stations: searchStationByName(params: { name: $name }) {
       name: Name
       siteId: SiteId
     }
@@ -11,9 +11,7 @@ export const SEARCH_STATION_BY_NAME = gql`
 
 export const SEARCH_STATIONS_BY_COORDINATES = gql`
   query searchStationsByCoordinates($lon: Float!, $lat: Float!) {
-    stationsByCoordinates: searchStationsByCoordinates(
-      params: { lon: $lon, lat: $lat }
-    ) {
+    stations: searchStationsByCoordinates(params: { lon: $lon, lat: $lat }) {
       name
       siteId
       dist

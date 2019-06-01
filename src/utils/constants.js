@@ -24,7 +24,8 @@ export const PulseTypes = {
 };
 
 export const IconTypes = {
-  HEART: 'iconHeart',
+  HEART_OUTLINED: 'iconHeartOutlined',
+  HEART_SOLID: 'iconHeartFilled',
   CROSS: 'iconCross'
 };
 
