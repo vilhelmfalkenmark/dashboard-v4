@@ -147,14 +147,14 @@
 /**
 * Lock html and body when modal is open
 */
-:global .modal-is-open {
-  overflow: hidden;
+// :global .modal-is-open {
+//   overflow: hidden;
 
-  body {
-    padding-right: 15px;
-    overflow-y: hidden;
-  }
-}
+//   body {
+//     padding-right: 15px;
+//     overflow-y: hidden;
+//   }
+// }
 
 .closeContainer {
   position: absolute;

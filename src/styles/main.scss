@@ -11,11 +11,24 @@
 
 html {
   font-size: 10px;
+  height: 100%;
 }
 
 body {
+  height: 100%;
   color: $text-standard-grey;
   font-size: 1.6rem;
   font-family: Roboto, sans-serif;
   background: rgb(238, 238, 238);
+  overflow: hidden;
+  position: relative;
+}
+
+#root {
+  overflow-y: scroll;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

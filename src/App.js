@@ -45,29 +45,3 @@ export const App = () => (
 );
 
 export default App;
-
-// import { useQuery } from 'react-apollo-hooks';
-
-// import { SEARCH_STATION_BY_NAME } from 'schemas/querys';
-
-// const App = () => {
-//   const { data, error, loading } = useQuery(SEARCH_STATION_BY_NAME, {
-//     variables: { name: 'Stadion' }
-//   });
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
-//   if (error) {
-//     return <div>Error! {error.message}</div>;
-//   }
-
-//   return (
-//     <ul>
-//       {data.stationsByName.map((station, index) => (
-//         <li key={`${station.siteId}_${index}`}>{station.name}</li>
-//       ))}
-//     </ul>
-//   );
-// };
-
-// export default App;
