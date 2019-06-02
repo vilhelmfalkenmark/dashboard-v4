@@ -9,7 +9,9 @@ export default ({ connector, endpoints, dbConnection }) => {
   const searchStationByName = ({ name }) =>
     connector
       .getRequest({ path: endpoints.searchStationByName(name) })
-      .then(response => view(lensPath(['ResponseData']), response));
+      .then(response => {
+        return view(lensPath(['ResponseData']), response);
+      });
 
   /**
   |--------------------------------------------------
@@ -26,6 +28,7 @@ export default ({ connector, endpoints, dbConnection }) => {
           lensPath(['LocationList', 'StopLocation']),
           response
         );
+
         return stations.map(station =>
           Object.assign({}, station, {
             siteId: station.id.slice(5)
@@ -38,9 +41,11 @@ export default ({ connector, endpoints, dbConnection }) => {
   |  @function getDeparturesByStationId
   |--------------------------------------------------
   */
-  const getDeparturesByStationId = ({ siteId }) =>
+  const getDeparturesByStationId = ({ siteId, timeWindow }) =>
     connector
-      .getRequest({ path: endpoints.getDeparturesByStationId(siteId) })
+      .getRequest({
+        path: endpoints.getDeparturesByStationId(siteId, timeWindow)
+      })
       .then(response => view(lensPath(['ResponseData']), response));
 
   /**

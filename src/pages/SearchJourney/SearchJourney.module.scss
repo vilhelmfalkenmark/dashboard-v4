@@ -7,3 +7,11 @@
 .card {
   @include large-card;
 }
+
+.row {
+  @include flex-row;
+}
+
+.col {
+  @include flex-gtr-col(2, $four-base-margin);
+}

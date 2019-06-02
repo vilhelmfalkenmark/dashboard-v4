@@ -2,8 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Navigation from 'components/Navigation/Navigation';
+import SearchJourney from 'pages/SearchJourney/SearchJourney';
 import SearchStations from 'pages/SearchStations/SearchStations';
 import FavoriteStations from 'pages/FavoriteStations/FavoriteStations';
+import CloseStations from 'pages/CloseStations/CloseStations';
 
 const NAV = [
   {
@@ -11,14 +13,24 @@ const NAV = [
     id: 3892,
     routes: [
       {
-        id: 8371,
-        title: 'Sök station',
+        id: 8370,
+        title: 'Sök resa',
         path: '/'
       },
       {
-        id: 2730,
+        id: 8371,
+        title: 'Sök station',
+        path: '/sok-station'
+      },
+      {
+        id: 8372,
         title: 'Favorit stationer',
         path: '/favoriter'
+      },
+      {
+        id: 8373,
+        title: 'Närliggande stationer',
+        path: '/nara-stationer'
       }
     ]
   }
@@ -27,11 +39,19 @@ const NAV = [
 const ROUTES = [
   {
     path: '/',
+    component: SearchJourney
+  },
+  {
+    path: '/sok-station',
     component: SearchStations
   },
   {
     path: '/favoriter',
     component: FavoriteStations
+  },
+  {
+    path: '/nara-stationer',
+    component: CloseStations
   }
 ];
 

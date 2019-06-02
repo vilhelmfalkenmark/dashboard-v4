@@ -5,16 +5,16 @@ export default ({ model }) => ({
   |--------------------------------------------------
   */
   Query: {
-    searchStationByName: (context, { params: { name } }) =>
+    searchStationByName: (_, { params: { name } }) =>
       model.searchStationByName({ name }),
 
-    searchStationsByCoordinates: (context, { params: { lon, lat } }) =>
+    searchStationsByCoordinates: (_, { params: { lon, lat } }) =>
       model.searchStationsByCoordinates({ lon, lat }),
 
-    getDeparturesByStationId: (context, { params: { siteId } }) =>
-      model.getDeparturesByStationId({ siteId }),
+    getDeparturesByStationId: (_, { params: { siteId, timeWindow } }) =>
+      model.getDeparturesByStationId({ siteId, timeWindow }),
 
-    myFavoriteStations: context => model.myFavoriteStations()
+    myFavoriteStations: _ => model.myFavoriteStations()
   },
   /**
   |--------------------------------------------------
@@ -22,10 +22,10 @@ export default ({ model }) => ({
   |--------------------------------------------------
   */
   Mutation: {
-    saveStationAsFavorite: (context, { params: { siteId, name } }) =>
+    saveStationAsFavorite: (_, { params: { siteId, name } }) =>
       model.saveStationAsFavorite({ siteId, name }),
 
-    removeStationFromFavorites: (context, { params: { siteId, name } }) =>
+    removeStationFromFavorites: (_, { params: { siteId, name } }) =>
       model.removeStationFromFavorites({ siteId, name })
   }
 });

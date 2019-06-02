@@ -22,6 +22,8 @@ function Station({ station, isFavorite, openDepartureModal, client }) {
   };
 
   const toggleFavorite = () => {
+    console.log(isFavorite);
+
     if (isFavorite) {
       return (async () => {
         await client.mutate({
@@ -57,9 +59,10 @@ function Station({ station, isFavorite, openDepartureModal, client }) {
             cache.writeQuery({
               query: MY_FAVORITE_STATIONS,
               data: {
-                myFavoriteStations: myFavoriteStations.concat([
-                  newFavoriteStation
-                ])
+                myFavoriteStations:
+                  myFavoriteStations !== null
+                    ? myFavoriteStations.concat([newFavoriteStation])
+                    : [newFavoriteStation]
               }
             });
           }
@@ -76,7 +79,9 @@ function Station({ station, isFavorite, openDepartureModal, client }) {
           icon={isFavorite ? IconTypes.HEART_SOLID : IconTypes.HEART_OUTLINED}
           onClickCallback={toggleFavorite}
         />
-        <span>{station.name}</span>
+        <span>{`${station.name} ${
+          station.dist ? ` - ${station.dist} meter` : ''
+        }`}</span>
       </div>
       <CircleButton icon={IconTypes.CROSS} onClickCallback={openModal} />
     </li>

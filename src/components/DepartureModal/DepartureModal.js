@@ -13,13 +13,15 @@ import styles from './DepartureModal.module.scss';
 
 const s = classNames.bind(styles);
 
+const TIME_WINDOWS = ['10', '20', '30', '60', '90', '120', '240', '480'];
+
 class DepartureModal extends Component {
   constructor() {
     super();
-
     this.state = {
       fetching: false,
       error: false,
+      timeWindowsIndex: 0,
       departures: {
         metros: [],
         buses: [],
@@ -29,23 +31,40 @@ class DepartureModal extends Component {
 
     this.oDeparturesFetched = this.oDeparturesFetched.bind(this);
     this.getDeparturesMarkup = this.getDeparturesMarkup.bind(this);
+    this.loadDepartures = this.loadDepartures.bind(this);
+    this.loadMore = this.loadMore.bind(this);
+  }
+
+  loadMore() {
+    this.setState(prevState => ({
+      timeWindowsIndex: prevState.timeWindowsIndex + 1
+    }));
+
+    this.loadDepartures(TIME_WINDOWS[this.state.timeWindowsIndex + 1]);
+  }
+
+  loadDepartures(timeWindow) {
+    const { client } = this.props;
+
+    return (async () => {
+      this.setState({
+        fetching: true
+      });
+
+      const { data, loading, error } = await client.query({
+        query: GET_DEPARTURES_BY_STATION_ID,
+        variables: {
+          siteId: this.props.station.siteId,
+          timeWindow
+        }
+      });
+      this.oDeparturesFetched(data.departures, loading, error);
+    })();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen !== this.props.isOpen && this.props.station.siteId) {
-      const { client } = this.props;
-
-      return (async () => {
-        this.setState({
-          fetching: true
-        });
-
-        const { data, loading, error } = await client.query({
-          query: GET_DEPARTURES_BY_STATION_ID,
-          variables: { siteId: this.props.station.siteId }
-        });
-        this.oDeparturesFetched(data.departures, loading, error);
-      })();
+      this.loadDepartures(TIME_WINDOWS[this.state.timeWindowsIndex]);
     }
   }
 
@@ -95,12 +114,20 @@ class DepartureModal extends Component {
 
     return (
       <div>
+        <h3>
+          {`Avgångar inom ${TIME_WINDOWS[this.state.timeWindowsIndex]} minuter`}
+        </h3>
         {metros.length > 0 &&
           this.getDepartureTypeMarkup(metros, 'Tunnelbana', 'metro')}
         {buses.length > 0 &&
           this.getDepartureTypeMarkup(buses, 'Bussar', 'bus')}
         {trains.length > 0 &&
           this.getDepartureTypeMarkup(trains, 'Tåg', 'train')}
+        {this.state.timeWindowsIndex < TIME_WINDOWS.length - 1 && (
+          <button onClick={this.loadMore}>{`Ladda avgångar inom ${
+            TIME_WINDOWS[this.state.timeWindowsIndex + 1]
+          } minuter`}</button>
+        )}
       </div>
     );
   }
@@ -118,7 +145,7 @@ class DepartureModal extends Component {
         onCloseCallback={this.props.closeDepartureModal}
       >
         <div className={s('container')}>
-          <h1>Avgångar från {station.name}</h1>
+          <h1>{`Avgångar från ${station.name}`}</h1>
           {fetching && (
             <div className={s('spinnerContainer')}>
               <SolidSpinner

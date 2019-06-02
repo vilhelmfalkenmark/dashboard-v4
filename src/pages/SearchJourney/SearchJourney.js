@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withApollo } from 'react-apollo';
 import classNames from 'classnames/bind';
-import { Query } from 'react-apollo';
+// import { Query } from 'react-apollo';
 
-import { SEARCH_STATION_BY_NAME, MY_FAVORITE_STATIONS } from 'schemas/querys';
+import { SEARCH_STATION_BY_NAME } from 'schemas/querys';
 
 import Input from 'components/Input/Input';
 import StationList from 'components/StationList/StationList';
 
-import styles from './SearchStations.module.scss';
+import styles from './SearchJourney.module.scss';
 
 const s = classNames.bind(styles);
 
-class SearchStations extends Component {
+class SearchJourney extends Component {
   constructor() {
     super();
     this.state = {
@@ -65,35 +65,39 @@ class SearchStations extends Component {
     const { fetching, stations, searchValue } = this.state;
 
     return (
-      <Query query={MY_FAVORITE_STATIONS}>
-        {({ data, error }) => {
-          const favoriteStationIds = this.getFavoriteStationIds(data);
-          return (
-            <main className={s('container')}>
-              <div className={s('card')}>
-                <h1>Sök station</h1>
-                <Input
-                  inputLabel={'Sök station'}
-                  inputValue={searchValue}
-                  onInputChange={this.handleInputChange}
-                  handleSubmit={this.onHandleSubmit}
-                />
-                <StationList
-                  stations={stations}
-                  favoriteStationIds={favoriteStationIds}
-                  fetching={fetching}
-                />
-              </div>
-            </main>
-          );
-        }}
-      </Query>
+      <main className={s('container')}>
+        <div className={s('card')}>
+          <h1>Sök resa</h1>
+          <div className={s('row')}>
+            <div className={s('col')}>
+              <h3>Från station</h3>
+              <Input
+                inputLabel={'Från station'}
+                inputValue={searchValue}
+                onInputChange={this.handleInputChange}
+                handleSubmit={this.onHandleSubmit}
+              />
+              <StationList stations={stations} fetching={fetching} />
+            </div>
+            <div className={s('col')}>
+              <h3>Till station </h3>
+              <Input
+                inputLabel={'Till station'}
+                inputValue={searchValue}
+                onInputChange={this.handleInputChange}
+                handleSubmit={this.onHandleSubmit}
+              />
+              <StationList stations={stations} fetching={fetching} />
+            </div>
+          </div>
+        </div>
+      </main>
     );
   }
 }
 
-SearchStations.propTypes = {
+SearchJourney.propTypes = {
   _: PropTypes.string
 };
 
-export default withApollo(SearchStations);
+export default withApollo(SearchJourney);

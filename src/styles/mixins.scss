@@ -190,6 +190,8 @@
 //////////////////////////////////////////////////
 @mixin large-card() {
   background: $white;
+  box-shadow: $box-shadow1;
+  border-radius: 4px;
   padding: $three-base-margin;
   margin: $four-base-margin auto;
   max-width: 860px;

@@ -73,7 +73,8 @@ export default ({ connector, endpoints, dbConnection }) => {
     ##### INPUT PARAMS ####
 
     input siteIdQuery {
-      siteId: String
+      siteId: String!,
+      timeWindow: String
     }
 
     input stationNameQuery {
